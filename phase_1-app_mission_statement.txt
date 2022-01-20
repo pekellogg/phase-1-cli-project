@@ -1,0 +1,4 @@
+IDEA
+For a functioning democracy, it is paramount that voters have quick access to accurate, basic civic information.
+Voters search for their state and are given their legislators' by name, any upcoming votes and contact information, as well as campaign finance details.
+Creating a voter-centric tool organized around the basic mechanism of local politics allows for careful scrutiny of a representatives' legislative actions.
