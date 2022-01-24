@@ -3,12 +3,18 @@ class Cli
         puts "Hello, citizen!"
         puts "In which US state are you currently registered to vote?"
         puts "For example, Washington state voters would type WA."
-        users_state = gets.strip
+        user_state = gets.strip
 
-        # call to state class for validation
-        if State::STATES.include?(users_state)
-            # senators returned per state with name, phone #
-            self.menu
+        # return state name, legislators, and legislators' phone #s
+        if Validator::STATES.include?(user_state)
+            state = State.all.select{|state| state.name == user_state}
+
+            binding.pry
+
+            puts "In the state of #{state.name}, your senators are..."
+            puts "#{state.legislator_1.first_name} #{state.legislator_1.last_name}"
+            puts "#{state.legislator_1.phone}"
+
         else
             puts "I didn't understand that."
             self.start

@@ -2,7 +2,7 @@ class APICall
 
     def self.get_data
         Legislator.create_legislators
-        State.new
+        State.create_from_legislators
     end
 
     def self.get_legislators
