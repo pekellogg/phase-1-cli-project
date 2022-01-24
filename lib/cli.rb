@@ -1,13 +1,12 @@
-class CLI
+class Cli
     def self.start
         puts "Hello, citizen!"
-        puts "In which state are you currently registered to vote?"
+        puts "In which US state are you currently registered to vote?"
         puts "For example, Washington state voters would type WA."
         users_state = gets.strip
 
         # call to state class for validation
         if State::STATES.include?(users_state)
-            # api call using validated state
             # senators returned per state with name, phone #
             self.menu
         else
@@ -17,7 +16,7 @@ class CLI
     end
 
     def self.menu
-        puts "1. Go to main menu."
+        puts "1. Find state senators."
         puts "2. Continue to senators' voting information..."
         puts "3. Continue to senators' campaign financing information..."
         puts "4. About App's mission and resources..."
