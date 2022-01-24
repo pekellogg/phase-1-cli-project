@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 require_relative '../config/environment.rb'
 
-State.get_legislators
+APICall.get_data
 Cli.start

@@ -7,7 +7,13 @@ class Legislator
         @@all
     end
 
-    # def initialize(name=nil, phone=nil, state=nil)
-    #     @@all << self
-    # end
+    # main attrs & joining attrs
+    #short_title, #first_name, #last_name, #state, #phone
+    def initialize(attributes)
+        attributes.each do |key, value|
+            self.class.attr_accessor(key)
+            self.send(("#{key}="), value)
+        end
+        @@all << self
+    end
 end
