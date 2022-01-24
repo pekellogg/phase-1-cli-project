@@ -1,7 +1,8 @@
 class APICall
 
     def self.get_data
-        create_legislators
+        Legislator.create_legislators
+        State.new
     end
 
     def self.get_legislators
@@ -10,12 +11,5 @@ class APICall
         
         # legislators total == 102; (Kamala Harris & Kelly Loeffler)
         legislators = body["results"][0]["members"]
-    end
-
-    def self.create_legislators
-        get_legislators.each do |legislator_attrs|
-            Legislator.new(legislator_attrs)
-        end
-        Legislator.all
     end
 end

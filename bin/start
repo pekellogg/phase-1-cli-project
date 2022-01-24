@@ -2,4 +2,4 @@
 require_relative '../config/environment.rb'
 
 APICall.get_data
-Cli.start
+# Cli.start
