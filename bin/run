@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+require_relative '../config/environment.rb'
+
+
+State.create_states # initialized from STATES
+Legislator.create_legislators # API call, state attrs assigned
+Cli.start

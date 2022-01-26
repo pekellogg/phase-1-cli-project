@@ -5,24 +5,19 @@ class Cli
         puts "For example, Washington state voters would type WA."
         user_state = gets.strip
 
-        # return state name, legislators, and legislators' phone #s
-        if Validator::STATES.include?(user_state)
-            state = State.all.select{|state| state.name == user_state}
-
-            binding.pry
-
+        if state = State.all.find{|state|state.name.casecmp?(user_state)}
             puts "In the state of #{state.name}, your senators are..."
             puts "#{state.legislator_1.first_name} #{state.legislator_1.last_name}"
-            puts "#{state.legislator_1.phone}"
-
+            puts "#{state.legislator_2.first_name} #{state.legislator_2.last_name}"
         else
             puts "I didn't understand that."
+            puts "Please try again with your state's two-letter abbreviation."
             self.start
         end
     end
 
     def self.menu
-        puts "1. Find state senators."
+        puts "1. Look up senators by state."
         puts "2. Continue to senators' voting information..."
         puts "3. Continue to senators' campaign financing information..."
         puts "4. About App's mission and resources..."
