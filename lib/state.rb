@@ -5,19 +5,18 @@ class State
         @@all
     end
 
-    attr_accessor :name, :legislator_1, :legislator_2
+    attr_accessor :name, :legislators
     
-    def initialize(name = nil, legislator_1 = nil, legislator_2 = nil)
+    def initialize(name = nil)
         @name = name
-        @legislator_1, @legislator_2 = legislator_1, legislator_2
+        @legislators = []
         self.class.all << self
     end
 
     def self.assign_legislators
         State.all.each do |state|
             legislators = Legislator.find_legislators(state.name)
-            state.legislator_1 = legislators[0]
-            state.legislator_2 = legislators[1]
+            state.legislators = legislators
         end
     end
 

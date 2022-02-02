@@ -1,9 +1,52 @@
 class Cli
     def self.start
+        welcome
+        app_mission
+        menu
+        puts ""
+        puts ""
+        
+        puts "What next? Please select by number."
+       
+        puts ""
+        puts ""
+
+        selection = gets.strip
+
+        binding.pry
+
+        
+        case selection
+        when 1
+            senators
+        when 2
+
+        when 3
+
+        when 4
+            
+        end
+    end
+
+    # call sleep 
+    def self.welcome
         puts "Hello, citizen!"
-        puts "In which US state are you currently registered to vote?"
-        puts "For example, Washington state voters would type WA."
-        user_state = gets.strip
+        puts "Welcome to DemocracyNOW, an app for voters to find their senators, minus the angry pundit rants of popular news media."
+        puts "What are they so mad about, anyway?"
+    end
+
+    def self.menu
+        puts "1 - Find senators"
+        puts "2 - Senator voting information"
+        puts "3 - Senator campaign financing information"
+        puts "4 - Where is this data from?"
+        puts "5 - Exit"
+    end
+
+    def self.senators
+        puts "Which US state do you want info for?"
+            puts "For example, Washington state voters would type WA."
+            user_state = gets.strip
 
         if state = State.all.find{|state|state.name.casecmp?(user_state)}
             puts "In the state of #{state.name}, your senators are..."
@@ -12,44 +55,21 @@ class Cli
         else
             puts "I didn't understand that."
             puts "Please try again with your state's two-letter abbreviation."
-            self.start
+            self.senators
         end
     end
 
-    def self.menu
-        puts "1. Look up senators by state."
-        puts "2. Continue to senators' voting information..."
-        puts "3. Continue to senators' campaign financing information..."
-        puts "4. About App's mission and resources..."
-        puts "5. Exit app."
-    end
-
-    def self.about_app
-        self.app_mission
-
-        puts ""
-        puts ""
-        puts ""
-
-        self.works_cited
-        
-        puts ""
-        puts ""
-        puts ""
-
-        self.menu
-    end
-
+    # add call to sleep between long sentences, find gem that makes text appear as if it's being typed(?)
     def self.app_mission
-        puts "For a functioning democracy, it is paramount that voters have quick access to accurate, basic civic information."
-        puts "Americans deserve a voter-centric tool organized around the basic mechanisms of local politics."
-        puts "Quick and easy access allows for careful scrutiny of a representatives' legislative actions."
+        puts "In a functioning democracy, we think voters have a right to local civic information."
+        puts "(Think-- who are my state's senate and house representatives? what are they doing this week?)"
+        puts "Americans deserve a voter-centric tool organized around the '101 of local politics."
+        puts "We think the basics should be... well, basic."
     end
 
     def self.works_cited
-        puts "Underlying ProPublica data of this application has been unmodified."
-        puts "The data herein may contain errors and omissions."
-        puts "In the event that the data is updated, the user is responsible for checking their site."
+        puts "The data in this app have been unmodified are provided by ProPublica."
+        puts "ProPublica requires us to let you know that the data herein may contain errors and omissions from time to time."
 
         puts ""
         puts ""
@@ -68,6 +88,6 @@ class Cli
 
         puts ""
 
-        puts "View license information at https://creativecommons.org/licenses/by-nc-nd/3.0/legalcode"
+        puts "View additional licensing information at https://creativecommons.org/licenses/by-nc-nd/3.0/legalcode"
     end
 end

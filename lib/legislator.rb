@@ -1,5 +1,7 @@
 class Legislator
-    BASE = "https://api.propublica.org/congress/v1/117/senate/members.json"
+    CHAMBERS = ["senate", "house"]
+    BASE = "https://api.propublica.org/congress/v1/117/"
+    BASE_CIVIC = "https://www.googleapis.com/civicinfo/v2/representatives.json"
     @@all = []
     def self.all
         @@all
@@ -14,8 +16,11 @@ class Legislator
     end
 
     def self.create_legislators
-        APICall.get_legislators.each do |attrs|
-            new(attrs) if attrs["in_office"]
+        CHAMBERS.each do |chamber|
+            uri = BASE + chamber + "/members.json"
+            APICall.get_legislators(uri).each do |attrs|
+                new(attrs) if attrs["in_office"]
+            end
         end
         assign_states
         all
@@ -25,7 +30,7 @@ class Legislator
         State.assign_legislators
     end
     
-    def self.find_legislators_by_str(state_str)
-        legislators = self.all.find_all{|rep|rep.state == state_str}
+    def self.find_legislators(state_str)
+        self.all.find_all{|rep|rep.state == state_str}
     end
 end
