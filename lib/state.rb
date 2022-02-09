@@ -9,21 +9,11 @@ class State
     
     def initialize(name = nil)
         @name = name
-        @legislators = []
+        @legislators = Legislator.all.find_all{|rep|rep.state == self.name}
         self.class.all << self
     end
 
-    def self.assign_legislators
-        State.all.each do |state|
-            legislators = Legislator.find_legislators(state.name)
-            state.legislators = legislators
-        end
-    end
-
     def self.create_states
-        STATES.each do |state_str|
-            state = State.new(state_str)
-        end
+        STATES.each{|str|State.new(str)}
     end
-
 end

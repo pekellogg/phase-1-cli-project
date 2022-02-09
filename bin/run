@@ -1,11 +1,7 @@
 #!/usr/bin/env ruby
 require_relative '../config/environment.rb'
 
-
-State.create_states # initialized from STATES
-Legislator.create_legislators # API call, state attrs assigned
-
-Vote.create_legislators_votes
-# APICall.get_votes_by_legislator
-
+Legislator.create_legislators
+State.create_states
+Vote.create_votes
 # Cli.start
