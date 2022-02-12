@@ -5,6 +5,8 @@ class Legislator
         @@all
     end
 
+    # attr_accessor :positions
+
     def initialize(attributes)
         attributes.each do |key, value|
             self.class.attr_accessor(key)
@@ -17,22 +19,23 @@ class Legislator
         CHAMBERS.each do |chamber|
             uri = APICall::BASE + "/117" + "/#{chamber}" + "/members.json"
             APICall.get_legislators(uri).each do |attrs|
-                new(attrs) if attrs["in_office"]
+                new(attrs) if attrs["in_office"] && (attrs["short_title"] == "Sen." || attrs["short_title"] == "Rep." )
             end
         end
     end
 
-    def self.position_uris
-        all.map{|rep|rep.api_uri.chomp(".json") + "/votes.json"}
-    end
-
-    def positions(uri)
-        APICall.get_positions(uri)
-    end
+    # def positions
+    #     self.positions = APICall.get_positions(self.api_uri.chomp(".json") + "/votes.json")
+    # end
 
     def contact_card
+        puts ""
         puts "#{self.title} #{self.first_name} #{self.last_name}"
-        puts "#{self.office} | #{self.phone} | #{self.contact_form}"
+        puts "#{self.office} | #{self.phone}"
+        puts ""
     end
 
+    def rep_name_title
+        "#{self.first_name} #{self.last_name}, #{self.title}"
+    end
 end

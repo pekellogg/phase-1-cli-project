@@ -17,19 +17,35 @@ class Vote
     end
 
     def display
+        puts "Date: #{self.date}"
         if self.chamber.casecmp?("house") && self.bill != {} && self.vote_type != "QUORUM"
             puts "Bill number: #{self.bill["number"]}"
             puts "Bill Title: #{self.bill["title"]}"
             puts "Latest action: #{self.bill["latest_action"]}"
         end
-        puts "Date: #{self.date}"
         puts "Description: #{self.description}"
         puts "Vote type: #{self.vote_type}"
         puts "Question: #{self.question}"
         puts "Result: #{self.result}"
         puts "Yes: #{self.total["yes"]}" + "  " + "No: #{self.total["no"]}" + "  " + "Not voting: #{self.total["not_voting"]}" if self.total["not_voting"] > 0
+    end
+
+    def state_positions(state)
+        positions = APICall.get_vote_positions(self.vote_uri)
+        positions.find_all{|position|state.legislator_ids.include?(position["member_id"])}
+    end
+
+    def display_with_positions(state)
+        positions_by_state = self.state_positions(state)
+        puts ""
+        puts ""
+        puts ""
+        self.display
+        puts "Representative positions:"
+        puts "-------------------------"
+        positions_by_state.each{|position|puts "#{position["name"]}: #{position["vote_position"]}"}
+        puts ""
         puts ""
         puts ""
     end
-
 end

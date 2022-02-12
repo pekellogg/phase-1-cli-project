@@ -16,4 +16,12 @@ class State
     def self.create_states
         STATES.each{|str|State.new(str)}
     end
+
+    def self.locate(str)
+        State.all.find{|state|state.name.casecmp?(str)}
+    end
+
+    def legislator_ids
+        self.legislators.map{|rep|rep.id}
+    end
 end
